@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %} 
+    <div>
+        <a href="/" class="btn btn-primary">返回</a>
+    </div>
+    <div>
+        <h4>股票基本信息</h4>
+        <table class="table table-bordered table-striped text-center">
+            <tr>
+                <td>股票代码</td>
+                <td>股票名称</td>
+                <td>所在区域</td>
+                <td>所属行业</td>
+            </tr>
+            <tr>
+                <td>{{code}}</td>
+                <td>{{info.name}}</td>
+                <td>{{info.area}}</td>
+                <td>{{info.industry}}</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h4>K线图</h4>
+        <img src="/media/{{code}}-{{start}}-{{end}}.png" alt="" class="img-responsive center-block">
+    </div>
+    <div>
+        <h4>预测</h4>
+        <div id="predict-area">
+            <button class="btn btn-success" onclick="predict()">开始预测</button>
+        </div>
+    </div>
+<script>
+    function predict() {
+        var url = '/predict/?code={{code}}&start={{start}}&end={{end}}';
+        $.getJSON(url, {}, function(data){
+            var r = data['error'];
+            if (r == 0) {
+                $('#predict-area').html(
+                    '<img src="/media/{{code}}-{{start}}-{{end}}-pred.png" alt="" class="img-responsive center-block">'
+                );
+            } else {
+                $('#predict-area').append(
+                    '<div class="alert alert-info>预测失败！请重新预测!</div>"'
+                );
+            }
+        });
+        
+    }
+</script>
+{% endblock %}

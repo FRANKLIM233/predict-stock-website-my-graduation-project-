@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="tt-loginpages-wrapper">
+        <div class="tt-title">
+            {% if message %}
+            <script>
+                alert('{{ message }}');
+            </script>
+            {% endif %}
+        </div>
+        <div class="tt-loginpages">
+            <a href="/" class="tt-block-title">
+                <div class="tt-title">
+                    欢迎使用股票预测系统
+                </div>
+                <div class="tt-description">
+                    欢迎注册使用!
+                </div>
+            </a>
+            
+            <form class="form-default" method="post" action="{% url 'account:register' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="loginUserName">用户名</label>
+                    <input type="text" name="username" class="form-control" id="loginUserName" placeholder="username">
+                </div>
+                <div class="form-group">
+                    <label for="loginUserPassword">密码</label>
+                    <input type="password" name="password" class="form-control" id="loginUserPassword" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="loginUserPassword">确认密码</label>
+                    <input type="password" name="repassword" class="form-control" id="loginUserPassword" placeholder="">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary btn-block" type="submit">注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

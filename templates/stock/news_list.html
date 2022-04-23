@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %} 
+<div class="news-area" style="margin-top: 10px;">
+    <div class="tab-pane" id="tt-tab-06" role="tabpanel">
+        <div class="tt-wrapper-inner">
+            <div class="tt-categories-list">
+                <div class="row">
+                    {% for item in news%}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="tt-item">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li><a href="#"><span class="tt-color01 tt-badge">{{ forloop.counter }}</span></a></li>
+                                </ul>
+                                <h6 class="tt-title"><a href="#">{{  item.0  }}</a></h6>
+                            </div>
+                            <div class="tt-item-layout">
+                               <div class="innerwrapper">
+                                   {{ item.1 }}.......
+                               </div>
+                               <a href="#" class="tt-btn-icon">
+                                    <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

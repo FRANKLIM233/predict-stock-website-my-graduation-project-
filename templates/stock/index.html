@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %} 
+    
+    <div class="tt-wrapper" style="margin-top: 20px;">
+        <div class="jumbotron">
+            <h1>基于机器学习的股价预测系统</h1>
+            <p>本系统使用SVM算法进行股价预测，网站搭建使用Django.</p>
+            <p><a class="btn btn-primary btn-lg" href="1111@gmail.com" role="button">联系作者</a></p>
+        </div>
+        <div class="">
+            <form class="form-default" action="{% url 'search' %}" id="search-form">
+                <div class="form-group">
+                  <label for="exampleInputName2">股票代码</label>
+                  <input type="text" id="code" class="form-control" id="exampleInputName2" placeholder="例如600895" name="code" required>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail2">开始日期</label>
+                  <input type="date" name='start' class="form-control" id="start" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail2">截止日期</label>
+                    <input type="date" name='end' class="form-control" id="end" required>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary btn-block" type="submit">查询</button>
+                </div>
+                
+            </form>
+        </div>
+       
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        $(function(){
+            $('#search-form').submit(function(){
+                var code = $('#code').val();
+                if(code.length != 6) {
+                    alert('股票代码必须为6位!');
+                    return false;
+                }
+                var start = $('#start').val();
+                var end = $('#end').val();
+                start = moment(start);
+                end = moment(end);
+                if (start >= end) {
+                    alert('截止日期不能早于开始日期');
+                    return false;
+                }
+                var today = moment();
+                if (end > today) {
+                    alert('截止日期不能晚于今日');
+                    return false;
+                }
+                var diff = end.diff(start, 'day');
+                if (diff < 15) {
+                    alert('截止日期与开始日期相差必须超过15天');
+                    return false;  
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
